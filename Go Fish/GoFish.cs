@@ -89,6 +89,11 @@ namespace GoFish
             
         }
 
+        public static void actions()
+        { }
+        public static void results()
+        { }
+
         public static void createDeck()
         {
             for (int i = 0; i < 4; i++)
