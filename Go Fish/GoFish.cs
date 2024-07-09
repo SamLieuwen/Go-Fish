@@ -72,6 +72,8 @@ namespace GoFish
                     {
                         Console.Write(card.card + " ");
                     }
+
+                    Console.WriteLine("\nWhich card would you like to ask for?");
                 }
             }
             else
@@ -91,6 +93,7 @@ namespace GoFish
 
         public static void actions()
         { }
+
         public static void results()
         { }
 
