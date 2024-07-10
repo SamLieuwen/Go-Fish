@@ -101,14 +101,15 @@ namespace GoFish
 
         public static int Pairs(List<Card> hand, int score)
         {
-            for (int i = 0; i <= hand.Count() - 2; i++)
+            for (int i = 0; i < hand.Count() - 1; i++)
             {
-                for (int j = i + 1; j <= hand.Count() - 1; j++)
+                for (int j = hand.Count() - 1; j > i; j--)
                 {
                     if (hand[i].card == hand[j].card)
-                    {
+                    {   
                         hand.RemoveAt(i);
-                        hand.RemoveAt(j);
+                        hand.RemoveAt(j - 1);
+                        j--;
                         score++;
                     }
                 }
