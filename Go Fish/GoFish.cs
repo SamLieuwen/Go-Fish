@@ -62,37 +62,15 @@ namespace GoFish
             else { Console.WriteLine("\nComputer goes first\nPress any key to continue"); }
             Console.ReadKey();
 
-            for (int i = 0; i < pH.Count() - 2; i++)
-            {
-                for (int j = i + 1; j < pH.Count(); j++)
-                {
-                    if(pH[i].card == pH[j].card)
-                    {
-                        pH.RemoveAt(i);
-                        pH.RemoveAt(j);
-                        pS++;
-                    }
-                }
-            }
-            for (int i = 0; i < dH.Count() - 2; i++)
-            {
-                for (int j = i + 1; j < dH.Count(); j++)
-                {
-                    if (dH[i].card == dH[j].card)
-                    {
-                        dH.RemoveAt(i);
-                        dH.RemoveAt(j);
-                        dS++;
-                    }
-                }
-            }
+            pS = Pairs(pH, pS);
+            dS = Pairs(dH, dS);
 
             if (firstTurn == true)
             {   
                 while (runGame)
                 {
                     Console.Clear();
-                    Console.WriteLine("Pairs: " + pS + "\nYour Hand: ");
+                    Console.Write("Pairs: " + pS + "\nYour Hand: ");
                     foreach (Card card in pH)
                     {
                         Console.Write(card.card + " ");
@@ -107,7 +85,7 @@ namespace GoFish
                 while (runGame)
                 {
                     Console.Clear();
-                    Console.WriteLine("Pairs: " + pS + "\nYour Hand: ");
+                    Console.Write("Pairs: " + pS + "\nYour Hand: ");
                     foreach (Card card in pH)
                     {
                         Console.Write(card.card + " ");
@@ -120,6 +98,23 @@ namespace GoFish
 
         public static void Actions()
         { }
+
+        public static int Pairs(List<Card> hand, int score)
+        {
+            for (int i = 0; i <= hand.Count() - 2; i++)
+            {
+                for (int j = i + 1; j <= hand.Count() - 1; j++)
+                {
+                    if (hand[i].card == hand[j].card)
+                    {
+                        hand.RemoveAt(i);
+                        hand.RemoveAt(j);
+                        score++;
+                    }
+                }
+            }
+            return score;
+        }
 
         public static void Results()
         { }

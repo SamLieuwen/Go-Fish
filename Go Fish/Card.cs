@@ -7,7 +7,7 @@ namespace GoFish
     public class Card
     {
         //Card attributes
-        public string card { get; set; }
+        public string card { get; }
 
         public Card(string card)
         {
