@@ -28,7 +28,7 @@ namespace GoFish
             dS = 0;
             runGame = true;
 
-            GoFish.createDeck();
+            GoFish.CreateDeck();
 
             for (int i = 0; i < 7; i++)
             {
@@ -62,18 +62,44 @@ namespace GoFish
             else { Console.WriteLine("\nComputer goes first\nPress any key to continue"); }
             Console.ReadKey();
 
-            if (firstTurn == true)
+            for (int i = 0; i < pH.Count() - 2; i++)
             {
+                for (int j = i + 1; j < pH.Count(); j++)
+                {
+                    if(pH[i].card == pH[j].card)
+                    {
+                        pH.RemoveAt(i);
+                        pH.RemoveAt(j);
+                        pS++;
+                    }
+                }
+            }
+            for (int i = 0; i < dH.Count() - 2; i++)
+            {
+                for (int j = i + 1; j < dH.Count(); j++)
+                {
+                    if (dH[i].card == dH[j].card)
+                    {
+                        dH.RemoveAt(i);
+                        dH.RemoveAt(j);
+                        dS++;
+                    }
+                }
+            }
+
+            if (firstTurn == true)
+            {   
                 while (runGame)
                 {
                     Console.Clear();
-                    Console.WriteLine("Your Hand: ");
+                    Console.WriteLine("Pairs: " + pS + "\nYour Hand: ");
                     foreach (Card card in pH)
                     {
                         Console.Write(card.card + " ");
                     }
 
                     Console.WriteLine("\nWhich card would you like to ask for?");
+                    Console.ReadLine();
                 }
             }
             else
@@ -81,23 +107,24 @@ namespace GoFish
                 while (runGame)
                 {
                     Console.Clear();
-                    Console.WriteLine("Your Hand: ");
+                    Console.WriteLine("Pairs: " + pS + "\nYour Hand: ");
                     foreach (Card card in pH)
                     {
                         Console.Write(card.card + " ");
                     }
+                    Console.WriteLine("\nWhich card would you like to ask for?");
+                    Console.ReadLine();
                 }
             }
-            
         }
 
-        public static void actions()
+        public static void Actions()
         { }
 
-        public static void results()
+        public static void Results()
         { }
 
-        public static void createDeck()
+        public static void CreateDeck()
         {
             for (int i = 0; i < 4; i++)
             {
