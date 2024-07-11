@@ -153,7 +153,9 @@ namespace GoFish
                     catch (Exception) { Console.WriteLine("Invalid Response"); }
                 }
 
-                if (pH.Contains(temp) == true)
+                
+                
+                if ()
                 {
                     foreach (Card card in dH)
                     {
