@@ -121,7 +121,6 @@ namespace GoFish
         public static void Actions()
         {
             Card temp = new Card(null);
-            Card temp2 = new Card(null);
             int dealerCount = dH.Count();
             bool action = true;
             bool error = true;
@@ -148,7 +147,7 @@ namespace GoFish
                                 break;
                             }
                         }
-                        if (check != true)
+                        if (check == false)
                         {
                             Console.WriteLine("Invalid Response");
                         }
@@ -156,10 +155,13 @@ namespace GoFish
                     catch (Exception) { Console.WriteLine("Invalid Response"); }
                 }
 
+                
+                
                 foreach (Card card in pH)
                 {
                     if (card.card == temp.card)
                     {
+                        temp = card;
                         inHand = true;
                         break;
                     }
@@ -167,23 +169,28 @@ namespace GoFish
 
                 if (inHand == true)
                 {
-                    foreach (Card card2 in dH)
-                    {
-                        temp2 = card2;
-                        
-                        if (card2.card == temp.card)
+                    foreach (Card card in dH)
+                    {   
+                        if (card.card == temp.card)
                         {
                             action = false;
-
-                            Console.WriteLine("You took the other player's card");
+                            inDHand = true;
+                            temp = card;
                             break;
                         }
                     }
-                    
                 }
                 else { Console.WriteLine("Your hand doesn't contain that card"); error = true; }
             }
-            if (dealerCount == dH.Count())
+            if (inDHand == true)
+            {
+                action = false;
+
+                Console.WriteLine("You took the other player's card");
+                pH.Add(temp);
+                dH.Remove(temp); 
+            }
+            else
             {
                 Console.WriteLine("Go Fish!");
                 pH.Add(deck[0]);
