@@ -317,20 +317,24 @@ namespace GoFish
 
         public static int Pairs(List<Card> hand, int score)
         {
-            for (int i = 0; i < hand.Count() - 1; i++)
+            for (int c = 0; c < 2; c++)
             {
-                for (int j = hand.Count() - 1; j > i; j--)
+                for (int i = 0; i < hand.Count() - 1; i++)
                 {
-                    if (hand[i].card == hand[j].card)
+                    for (int j = hand.Count() - 1; j > i; j--)
                     {
-                        hand.RemoveAt(j);
-                        hand.RemoveAt(i);
-                        score++;
-                        j--;
+                        if (hand[i].card == hand[j].card)
+                        {
+                            hand.RemoveAt(j);
+                            hand.RemoveAt(i);
+                            score++;
+                            j--;
+                        }
                     }
                 }
             }
             return score;
+
         }
         public static void NoCardsInHand(List<Card> hand)
         {
