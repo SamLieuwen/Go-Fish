@@ -64,31 +64,30 @@ namespace GoFish
             //else { Console.WriteLine("\nComputer goes first\nPress any key to continue"); }
             //Console.ReadKey();
 
-
+            pS = Pairs(pH, pS);
+            dS = Pairs(dH, dS);
 
             if (firstTurn == true)
             {   
                 while (runGame)
                 {
-                    pS = Pairs(pH, pS);
-                    dS = Pairs(dH, dS);
-
                     Console.Clear();
                     Console.Write("Pairs: " + pS + "\nYour Hand: ");
                     foreach (Card card in pH)
                     {
                         Console.Write(card.card + " ");
                     }
+                    
                     Actions();
+                    pS = Pairs(pH, pS);
+
+                    //DealerActions();
                 }
             }
             else
             {
                 while (runGame)
                 {
-                    pS = Pairs(pH, pS);
-                    dS = Pairs(dH, dS);
-
                     Console.Clear();
                     Console.Write("Pairs: " + pS + "\nYour Hand: ");
                     foreach (Card card in pH)
@@ -96,6 +95,10 @@ namespace GoFish
                         Console.Write(card.card + " ");
                     }
                     DealerActions();
+                    dS = Pairs(dH, dS);
+
+                    //Actions();
+                    
                 }
             }
         }
@@ -155,8 +158,6 @@ namespace GoFish
                     catch (Exception) { Console.WriteLine("Invalid Response"); }
                 }
 
-                
-                
                 foreach (Card card in pH)
                 {
                     if (card.card == temp.card)
@@ -179,20 +180,21 @@ namespace GoFish
                             break;
                         }
                     }
+                    action = false;
                 }
-                else { Console.WriteLine("Your hand doesn't contain that card"); error = true; }
+                else { Console.WriteLine("\nYour hand doesn't contain that card"); error = true; }
             }
             if (inDHand == true)
             {
-                action = false;
-
-                Console.WriteLine("You took the other player's card");
+                Console.WriteLine("\nYou took the other player's card");
+                Console.ReadKey();
                 pH.Add(temp);
                 dH.Remove(temp); 
             }
             else
             {
-                Console.WriteLine("Go Fish!");
+                Console.WriteLine("\nGo Fish!");
+                Console.ReadKey();
                 pH.Add(deck[0]);
                 deck.RemoveAt(0);
             }
