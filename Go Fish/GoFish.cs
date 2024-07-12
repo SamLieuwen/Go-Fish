@@ -72,7 +72,7 @@ namespace GoFish
                 while (runGame)
                 {
                     Console.Clear();
-                    Console.Write("Pairs: " + pS + "\nYour Hand: ");
+                    Console.Write("Your Pairs: " + pS + "\nYour Hand: ");
                     foreach (Card card in pH)
                     {
                         Console.Write(card.card + " ");
@@ -81,7 +81,8 @@ namespace GoFish
                     Actions();
                     pS = Pairs(pH, pS);
 
-                    //DealerActions();
+                    DealerActions();
+                    dS = Pairs(dH, dS);
                 }
             }
             else
@@ -89,7 +90,7 @@ namespace GoFish
                 while (runGame)
                 {
                     Console.Clear();
-                    Console.Write("Pairs: " + pS + "\nYour Hand: ");
+                    Console.Write("Your Pairs: " + pS + "\nYour Hand: ");
                     foreach (Card card in pH)
                     {
                         Console.Write(card.card + " ");
@@ -97,8 +98,8 @@ namespace GoFish
                     DealerActions();
                     dS = Pairs(dH, dS);
 
-                    //Actions();
-                    
+                    Actions();
+                    pS = Pairs(pH, pS);
                 }
             }
         }
@@ -186,22 +187,52 @@ namespace GoFish
             }
             if (inDHand == true)
             {
+                pH.Add(temp);
+                dH.Remove(temp);
                 Console.WriteLine("\nYou took the other player's card");
                 Console.ReadKey();
-                pH.Add(temp);
-                dH.Remove(temp); 
             }
             else
             {
-                Console.WriteLine("\nGo Fish!");
-                Console.ReadKey();
                 pH.Add(deck[0]);
                 deck.RemoveAt(0);
+                Console.WriteLine("\nGo Fish!");
+                Console.ReadKey();
             }
         }
         public static void DealerActions()
         {
+            Random rnd = new Random();
+            Card temp = new Card(null);
+            int dHCount = dH.Count();
+            int index = 0;
+            bool inHand = false;
+            
+            index = rnd.Next(0, dHCount);
 
+            foreach (Card card in pH)
+            {
+                if (dH[index].card == card.card)
+                {
+                    temp = card;
+                    inHand = true;
+                }
+            }
+
+            if (inHand == true)
+            {
+                dH.Add(temp);
+                pH.Remove(temp);
+                Console.WriteLine("\nThe other player took your card");
+                Console.ReadKey();
+            }
+            else
+            {
+                dH.Add(deck[0]);
+                deck.RemoveAt(0);
+                Console.WriteLine("\nGo Fish!"); 
+                Console.ReadKey();
+            }
         }
 
         public static void Results()
