@@ -71,13 +71,11 @@ namespace GoFish
             {
                 while (runGame)
                 {
-                    Console.Clear();
                     DisplayCards();
 
                     Actions();
                     pS = Pairs(pH, pS);
 
-                    Console.Clear();
                     DisplayCards();
 
                     DealerActions();
@@ -212,7 +210,7 @@ namespace GoFish
             }
             else
             {
-                Console.WriteLine("Go Fish!\nPress any key to continue");
+                Console.WriteLine("Go Fish!\nYou picked up a: " + deck[0].card + "\n\nPress any key to continue");
                 Console.ReadKey();
 
                 pH.Add(deck[0]);
@@ -222,6 +220,7 @@ namespace GoFish
         public static void DealerActions()
         {
             Random rnd = new Random();
+            Card temp = new Card(null);
             int dHCount = dH.Count();
             int index = 0;
             bool inHand = false;
@@ -233,6 +232,7 @@ namespace GoFish
                 if (dH[index].card == card.card)
                 {
                     inHand = true;
+                    temp = card;
                 }
             }
 
@@ -240,19 +240,21 @@ namespace GoFish
             {
                 Console.WriteLine("\nDo you have a " + dH[index].card);
                 Console.WriteLine("\nThe computer took your card\nPress any key to continue");
-                Console.ReadKey();
 
-                dH.Add(dH[index]);
-                pH.Remove(dH[index]);
+                dH.Add(temp);
+                pH.Remove(temp);
+
+                Console.ReadKey();
             }
             else
             {
                 Console.WriteLine("\nDo you have a " + dH[index].card);
-                Console.WriteLine("Go Fish!\nPress any key to continue"); 
-                Console.ReadKey();
+                Console.WriteLine("Go Fish!\nPress any key to continue");
 
                 dH.Add(deck[0]);
                 deck.RemoveAt(0);
+
+                Console.ReadKey();
             }
         }
 
@@ -351,6 +353,7 @@ namespace GoFish
         }
         public static void DisplayCards()
         {            
+            Console.Clear();
             Console.Write("Cards left in deck: " + deck.Count());
             Console.Write("\nYour Pairs: " + pS + "\nYour Hand: ");
             foreach (Card card in pH)
