@@ -82,6 +82,24 @@ namespace GoFish
 
                     DealerActions();
                     dS = Pairs(dH, dS);
+
+                    if (deck.Count() > 0)
+                    {
+                        if (pH.Count() == 0)
+                        {
+                            NoCardsInHand(pH);
+                            Pairs(pH, pS);
+                        }
+                        if (dH.Count() == 0)
+                        {
+                            NoCardsInHand(dH);
+                            Pairs(dH, dS);
+                        }
+                    }
+                    else if (deck.Count() == 0 && pH.Count() == 0 && dH.Count() == 0)
+                    {
+                        Results();
+                    }
                 }
             }
             else
@@ -99,6 +117,24 @@ namespace GoFish
 
                     Actions();
                     pS = Pairs(pH, pS);
+
+                    if (deck.Count() > 0)
+                    {
+                        if (pH.Count() == 0)
+                        {
+                            NoCardsInHand(pH);
+                            Pairs(pH, pS);
+                        }
+                        if (dH.Count() == 0)
+                        {
+                            NoCardsInHand(dH);
+                            Pairs(dH, dS);
+                        }
+                    }
+                    else if (deck.Count() == 0 && pH.Count() == 0 && dH.Count() == 0)
+                    {
+                        Results();
+                    }
                 }
             }
         }
@@ -168,7 +204,7 @@ namespace GoFish
             }
             if (inDHand == true)
             {
-                Console.WriteLine("\nYou took the other player's card\nPress any key to continue");
+                Console.WriteLine("\nYou took the computer's card\nPress any key to continue");
                 Console.ReadKey();
 
                 pH.Add(temp);
@@ -203,7 +239,7 @@ namespace GoFish
             if (inHand == true)
             {
                 Console.WriteLine("\nDo you have a " + dH[index].card);
-                Console.WriteLine("\nThe other player took your card\nPress any key to continue");
+                Console.WriteLine("\nThe computer took your card\nPress any key to continue");
                 Console.ReadKey();
 
                 dH.Add(dH[index]);
@@ -221,7 +257,14 @@ namespace GoFish
         }
 
         public static void Results()
-        { }
+        { 
+            Console.Clear();
+            Console.WriteLine("Your Pairs: " + pS + "\nComputer's Pairs: " + dS);
+
+            if (pS > dS) { Console.WriteLine("You Win!"); }
+            else if (pS < dS) { Console.WriteLine("You Lose!"); }
+            else if (pS == dS) { Console.WriteLine("Tie"); }
+        }
 
         public static void CreateDeck()
         {
@@ -286,6 +329,25 @@ namespace GoFish
                 }
             }
             return score;
+        }
+        public static void NoCardsInHand(List<Card> hand)
+        {
+            if (deck.Count() >= 5)
+            {
+                for (int i = 0; i < 5; i++)
+                {
+                    hand.Add(deck[0]);
+                    deck.RemoveAt(0);
+                }
+            }
+            else
+            {
+                for (int i = 0; i < deck.Count(); i++)
+                {
+                    hand.Add(deck[i]);
+                    deck.RemoveAt(i);
+                }
+            }
         }
         public static void DisplayCards()
         {            
