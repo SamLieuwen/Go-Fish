@@ -84,7 +84,7 @@ namespace GoFish
                     //DealerActions();
                 }
             }
-            else
+            elseFour
             {
                 while (runGame)
                 {
