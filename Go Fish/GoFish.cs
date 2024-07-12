@@ -21,7 +21,7 @@ namespace GoFish
             string guess;
             int coin;
             bool firstTurn = true;
-            
+
             referenceDeck = new List<Card>();
             deck = new List<Card>();
             pH = new List<Card>();
@@ -68,18 +68,17 @@ namespace GoFish
             dS = Pairs(dH, dS);
 
             if (firstTurn == true)
-            {   
+            {
                 while (runGame)
                 {
                     Console.Clear();
-                    Console.Write("Your Pairs: " + pS + "\nYour Hand: ");
-                    foreach (Card card in pH)
-                    {
-                        Console.Write(card.card + " ");
-                    }
-                    
+                    DisplayCards();
+
                     Actions();
                     pS = Pairs(pH, pS);
+
+                    Console.Clear();
+                    DisplayCards();
 
                     DealerActions();
                     dS = Pairs(dH, dS);
@@ -90,36 +89,18 @@ namespace GoFish
                 while (runGame)
                 {
                     Console.Clear();
-                    Console.Write("Your Pairs: " + pS + "\nYour Hand: ");
-                    foreach (Card card in pH)
-                    {
-                        Console.Write(card.card + " ");
-                    }
+                    DisplayCards();
+
                     DealerActions();
                     dS = Pairs(dH, dS);
+
+                    Console.Clear();
+                    DisplayCards();
 
                     Actions();
                     pS = Pairs(pH, pS);
                 }
             }
-        }
-
-        public static int Pairs(List<Card> hand, int score)
-        {
-            for (int i = 0; i < hand.Count() - 1; i++)
-            {
-                for (int j = hand.Count() - 1; j > i; j--)
-                {
-                    if (hand[i].card == hand[j].card)
-                    {
-                        hand.RemoveAt(j);
-                        hand.RemoveAt(i);
-                        score++;
-                        j--;
-                    }
-                }
-            }
-            return score;
         }
 
         public static void Actions()
@@ -183,27 +164,28 @@ namespace GoFish
                     }
                     action = false;
                 }
-                else { Console.WriteLine("\nYour hand doesn't contain that card"); error = true; }
+                else { Console.WriteLine("\nYour hand doesn't contain a " + temp.card); error = true; }
             }
             if (inDHand == true)
             {
+                Console.WriteLine("\nYou took the other player's card\nPress any key to continue");
+                Console.ReadKey();
+
                 pH.Add(temp);
                 dH.Remove(temp);
-                Console.WriteLine("\nYou took the other player's card");
-                Console.ReadKey();
             }
             else
             {
+                Console.WriteLine("Go Fish!\nPress any key to continue");
+                Console.ReadKey();
+
                 pH.Add(deck[0]);
                 deck.RemoveAt(0);
-                Console.WriteLine("\nGo Fish!");
-                Console.ReadKey();
             }
         }
         public static void DealerActions()
         {
             Random rnd = new Random();
-            Card temp = new Card(null);
             int dHCount = dH.Count();
             int index = 0;
             bool inHand = false;
@@ -214,24 +196,27 @@ namespace GoFish
             {
                 if (dH[index].card == card.card)
                 {
-                    temp = card;
                     inHand = true;
                 }
             }
 
             if (inHand == true)
             {
-                dH.Add(temp);
-                pH.Remove(temp);
-                Console.WriteLine("\nThe other player took your card");
+                Console.WriteLine("\nDo you have a " + dH[index].card);
+                Console.WriteLine("\nThe other player took your card\nPress any key to continue");
                 Console.ReadKey();
+
+                dH.Add(dH[index]);
+                pH.Remove(dH[index]);
             }
             else
             {
+                Console.WriteLine("\nDo you have a " + dH[index].card);
+                Console.WriteLine("Go Fish!\nPress any key to continue"); 
+                Console.ReadKey();
+
                 dH.Add(deck[0]);
                 deck.RemoveAt(0);
-                Console.WriteLine("\nGo Fish!"); 
-                Console.ReadKey();
             }
         }
 
@@ -283,6 +268,34 @@ namespace GoFish
             referenceDeck.Add(new Card("Jack"));
             referenceDeck.Add(new Card("Queen"));
             referenceDeck.Add(new Card("King"));
+        }
+
+        public static int Pairs(List<Card> hand, int score)
+        {
+            for (int i = 0; i < hand.Count() - 1; i++)
+            {
+                for (int j = hand.Count() - 1; j > i; j--)
+                {
+                    if (hand[i].card == hand[j].card)
+                    {
+                        hand.RemoveAt(j);
+                        hand.RemoveAt(i);
+                        score++;
+                        j--;
+                    }
+                }
+            }
+            return score;
+        }
+        public static void DisplayCards()
+        {            
+            Console.Write("Cards left in deck: " + deck.Count());
+            Console.Write("\nYour Pairs: " + pS + "\nYour Hand: ");
+            foreach (Card card in pH)
+            {
+                Console.Write(card.card + " ");
+            }
+            Console.WriteLine();
         }
     }
 }
