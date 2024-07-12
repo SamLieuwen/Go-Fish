@@ -121,14 +121,17 @@ namespace GoFish
         public static void Actions()
         {
             Card temp = new Card(null);
+            Card temp2 = new Card(null);
             int dealerCount = dH.Count();
             bool action = true;
-            bool loop = true;
+            bool error = true;
             bool check = false;
+            bool inHand = false;
+            bool inDHand = false;
             
             while (action)
             {
-                while (loop)
+                while (error)
                 {
                     try
                     {
@@ -141,7 +144,7 @@ namespace GoFish
                             if (card.card == temp.card)
                             {
                                 check = true;
-                                loop = false;
+                                error = false;
                                 break;
                             }
                         }
@@ -153,13 +156,22 @@ namespace GoFish
                     catch (Exception) { Console.WriteLine("Invalid Response"); }
                 }
 
-                
-                
-                if ()
+                foreach (Card card in pH)
                 {
-                    foreach (Card card in dH)
+                    if (card.card == temp.card)
                     {
-                        if (card.card == temp.card)
+                        inHand = true;
+                        break;
+                    }
+                }
+
+                if (inHand == true)
+                {
+                    foreach (Card card2 in dH)
+                    {
+                        temp2 = card2;
+                        
+                        if (card2.card == temp.card)
                         {
                             action = false;
 
@@ -167,8 +179,9 @@ namespace GoFish
                             break;
                         }
                     }
+                    
                 }
-                else { Console.WriteLine("Your hand doesn't contain that card"); }
+                else { Console.WriteLine("Your hand doesn't contain that card"); error = true; }
             }
             if (dealerCount == dH.Count())
             {
