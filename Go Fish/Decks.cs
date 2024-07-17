@@ -110,11 +110,6 @@ namespace GoFish
             {
                 Console.Write(card.card + " ");
             }
-            Console.Write("\nComputer Pairs: " + GoFish.dS + "\nComputer Hand: ");
-            foreach (Card card in Decks.dH)
-            {
-                Console.Write(card.card + " ");
-            }
             Console.WriteLine();
         }
     }
