@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace GoFish
 {
-    public class Card
+    internal class Card
     {
         //Card attributes
         public string card { get; set; }
