@@ -44,25 +44,25 @@ namespace GoFish
             Console.Clear();
             Console.WriteLine("Welcome to Go Fish!");
 
-            //while (true)
-            //{
-            //    Console.WriteLine("Heads or Tails: ");
-            //    guess = Console.ReadLine().ToLower();
-            //    coin = rnd.Next(1, 3);
+            while (true)
+            {
+                Console.WriteLine("Heads or Tails: ");
+                guess = Console.ReadLine().ToLower();
+                coin = rnd.Next(1, 3);
 
-            //    if (guess != "heads" && guess != "tails")
-            //    {
-            //        Console.WriteLine("Invalid Response");
-            //    }
-            //    else { break; }
-            //}
-            //if (guess == "heads" && coin == 1 || guess == "tails" && coin == 2)
-            //{
-            //    firstTurn = true;
-            //    Console.WriteLine("\nYou go first\nPress any key to continue");
-            //}
-            //else { Console.WriteLine("\nComputer goes first\nPress any key to continue"); }
-            //Console.ReadKey();
+                if (guess != "heads" && guess != "tails")
+                {
+                    Console.WriteLine("Invalid Response");
+                }
+                else { break; }
+            }
+            if (guess == "heads" && coin == 1 || guess == "tails" && coin == 2)
+            {
+                firstTurn = true;
+                Console.WriteLine("\nYou go first\nPress any key to continue");
+            }
+            else { Console.WriteLine("\nComputer goes first\nPress any key to continue"); }
+            Console.ReadKey();
 
             pS = Pairs(pH, pS);
             dS = Pairs(dH, dS);
@@ -73,29 +73,33 @@ namespace GoFish
                 {
                     DisplayCards();
 
-                    Actions();
-                    pS = Pairs(pH, pS);
+                    if (pH.Count() > 0)
+                    {
+                        Actions();
+                        pS = Pairs(pH, pS);
+                    }
+                    if (pH.Count() == 0)
+                    {
+                        NoCardsInHand(pH);
+                        Pairs(pH, pS);
+                    } 
 
                     DisplayCards();
 
-                    DealerActions();
-                    dS = Pairs(dH, dS);
-
-                    if (deck.Count() > 0)
+                    if (dH.Count() > 0)
                     {
-                        if (pH.Count() == 0)
-                        {
-                            NoCardsInHand(pH);
-                            Pairs(pH, pS);
-                        }
-                        if (dH.Count() == 0)
-                        {
-                            NoCardsInHand(dH);
-                            Pairs(dH, dS);
-                        }
+                        DealerActions();
+                        dS = Pairs(dH, dS);
                     }
-                    else if (deck.Count() == 0 && pH.Count() == 0 && dH.Count() == 0)
+                    if (dH.Count() == 0)
                     {
+                        NoCardsInHand(dH);
+                        Pairs(dH, dS);
+                    }
+
+                    if (deck.Count() == 0 && pH.Count() == 0 && dH.Count() == 0)
+                    {
+                        runGame = false;
                         Results();
                     }
                 }
@@ -350,8 +354,8 @@ namespace GoFish
             {
                 for (int i = 0; i < deck.Count(); i++)
                 {
-                    hand.Add(deck[i]);
-                    deck.RemoveAt(i);
+                    hand.Add(deck[0]);
+                    deck.RemoveAt(0);
                 }
             }
         }
@@ -361,6 +365,11 @@ namespace GoFish
             Console.Write("Cards left in deck: " + deck.Count());
             Console.Write("\nYour Pairs: " + pS + "\nYour Hand: ");
             foreach (Card card in pH)
+            {
+                Console.Write(card.card + " ");
+            }
+            Console.Write("\nComputer Pairs: " + dS + "\nComputer Hand: ");
+            foreach (Card card in dH)
             {
                 Console.Write(card.card + " ");
             }
