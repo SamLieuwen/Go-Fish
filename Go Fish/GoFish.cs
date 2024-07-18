@@ -17,7 +17,7 @@ namespace GoFish
             Random rnd = new Random();
             string guess;
             int coin;
-            bool firstTurn = true;
+            bool firstTurn = false;
 
             Decks.referenceDeck = new List<Card>();
             Decks.deck = new List<Card>();
@@ -157,9 +157,15 @@ namespace GoFish
             Console.Clear();
             Console.WriteLine("Your Pairs: " + playerScore + "\nComputer's Pairs: " + dealerScore);
 
-            if (playerScore > dealerScore) { Console.WriteLine("You Win!"); }
-            else if (playerScore < dealerScore) { Console.WriteLine("You Lose!"); }
-            else if (playerScore == dealerScore) { Console.WriteLine("Tie"); }
+            if (playerScore > dealerScore) { Console.WriteLine("You Win!\nWould you like to play again?"); }
+            else if (playerScore < dealerScore) { Console.WriteLine("You Lose!\nWould you like to play again?"); }
+            else if (playerScore == dealerScore) { Console.WriteLine("Tie\nWould you like to play again?"); }
+
+            if ("yes" == Console.ReadLine().ToLower())
+            {
+                Console.Clear();
+                Main(null);
+            }
         }
     }
 }
