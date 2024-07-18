@@ -101,16 +101,5 @@ namespace GoFish
                 }
             }
         }
-        public static void DisplayCards()
-        {
-            Console.Clear();
-            Console.Write("Cards left in deck: " + Decks.deck.Count());
-            Console.Write("\nYour Pairs: " + GoFish.playerScore + "\nYour Hand: ");
-            foreach (Card card in Decks.playerHand)
-            {
-                Console.Write(card.card + " ");
-            }
-            Console.WriteLine();
-        }
     }
 }

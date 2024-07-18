@@ -68,7 +68,7 @@ namespace GoFish
             {
                 while (runGame)
                 {
-                    Decks.DisplayCards();
+                    DisplayCards();
 
                     if (Decks.playerHand.Count() > 0)
                     {
@@ -81,7 +81,7 @@ namespace GoFish
                         Decks.Pairs(Decks.playerHand, playerScore);
                     }
 
-                    Decks.DisplayCards();
+                    DisplayCards();
 
                     if (Decks.dealerHand.Count() > 0)
                     {
@@ -105,7 +105,7 @@ namespace GoFish
             {
                 while (runGame)
                 {
-                    Decks.DisplayCards();
+                    DisplayCards();
 
                     if (Decks.dealerHand.Count() > 0)
                     {
@@ -118,7 +118,7 @@ namespace GoFish
                         Decks.Pairs(Decks.dealerHand, dealerScore);
                     }
 
-                    Decks.DisplayCards();
+                    DisplayCards();
 
                     if (Decks.playerHand.Count() > 0)
                     {
@@ -138,6 +138,18 @@ namespace GoFish
                     }
                 }
             }
+        }
+
+        public static void DisplayCards()
+        {
+            Console.Clear();
+            Console.Write("Cards left in deck: " + Decks.deck.Count());
+            Console.Write("\nYour Pairs: " + GoFish.playerScore + "\nYour Hand: ");
+            foreach (Card card in Decks.playerHand)
+            {
+                Console.Write(card.card + " ");
+            }
+            Console.WriteLine();
         }
 
         public static void Results()
