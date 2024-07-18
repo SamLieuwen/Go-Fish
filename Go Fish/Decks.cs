@@ -11,8 +11,8 @@ namespace GoFish
     {
         public static List<Card> referenceDeck;
         public static List<Card> deck;
-        public static List<Card> pH;
-        public static List<Card> dH;
+        public static List<Card> playerHand;
+        public static List<Card> dealerHand;
 
         public static void CreateDeck()
         {
@@ -105,8 +105,8 @@ namespace GoFish
         {
             Console.Clear();
             Console.Write("Cards left in deck: " + Decks.deck.Count());
-            Console.Write("\nYour Pairs: " + GoFish.pS + "\nYour Hand: ");
-            foreach (Card card in Decks.pH)
+            Console.Write("\nYour Pairs: " + GoFish.playerScore + "\nYour Hand: ");
+            foreach (Card card in Decks.playerHand)
             {
                 Console.Write(card.card + " ");
             }

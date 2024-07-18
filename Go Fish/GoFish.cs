@@ -7,8 +7,8 @@ namespace GoFish
 {
     internal class GoFish
     {
-        public static int pS;
-        public static int dS;
+        public static int playerScore;
+        public static int dealerScore;
         public static bool runGame;
 
         static void Main(string[] args)
@@ -21,10 +21,10 @@ namespace GoFish
 
             Decks.referenceDeck = new List<Card>();
             Decks.deck = new List<Card>();
-            Decks.pH = new List<Card>();
-            Decks.dH = new List<Card>();
-            pS = 0;
-            dS = 0;
+            Decks.playerHand = new List<Card>();
+            Decks.dealerHand = new List<Card>();
+            playerScore = 0;
+            dealerScore = 0;
             runGame = true;
 
             Decks.ReferenceDeck();
@@ -32,9 +32,9 @@ namespace GoFish
 
             for (int i = 0; i < 7; i++)
             {
-                Decks.pH.Add(Decks.deck[0]);
+                Decks.playerHand.Add(Decks.deck[0]);
                 Decks.deck.RemoveAt(0);
-                Decks.dH.Add(Decks.deck[0]);
+                Decks.dealerHand.Add(Decks.deck[0]);
                 Decks.deck.RemoveAt(0);
             }
 
@@ -43,17 +43,17 @@ namespace GoFish
 
             while (true)
             {
-                Console.WriteLine("Heads or Tails: ");
+                Console.WriteLine("HeadealerScore or Tails: ");
                 guess = Console.ReadLine().ToLower();
                 coin = rnd.Next(1, 3);
 
-                if (guess != "heads" && guess != "tails")
+                if (guess != "headealerScore" && guess != "tails")
                 {
                     Console.WriteLine("Invalid Response");
                 }
                 else { break; }
             }
-            if (guess == "heads" && coin == 1 || guess == "tails" && coin == 2)
+            if (guess == "headealerScore" && coin == 1 || guess == "tails" && coin == 2)
             {
                 firstTurn = true;
                 Console.WriteLine("\nYou go first\nPress any key to continue");
@@ -61,8 +61,8 @@ namespace GoFish
             else { Console.WriteLine("\nComputer goes first\nPress any key to continue"); }
             Console.ReadKey();
 
-            pS = Decks.Pairs(Decks.pH, pS);
-            dS = Decks.Pairs(Decks.dH, dS);
+            playerScore = Decks.Pairs(Decks.playerHand, playerScore);
+            dealerScore = Decks.Pairs(Decks.dealerHand, dealerScore);
 
             if (firstTurn == true)
             {
@@ -70,31 +70,31 @@ namespace GoFish
                 {
                     Decks.DisplayCards();
 
-                    if (Decks.pH.Count() > 0)
+                    if (Decks.playerHand.Count() > 0)
                     {
                         Actions();
-                        pS = Decks.Pairs(Decks.pH, pS);
+                        playerScore = Decks.Pairs(Decks.playerHand, playerScore);
                     }
-                    if (Decks.pH.Count() == 0)
+                    if (Decks.playerHand.Count() == 0)
                     {
-                        Decks.NoCardsInHand(Decks.pH);
-                        Decks.Pairs(Decks.pH, pS);
+                        Decks.NoCardsInHand(Decks.playerHand);
+                        Decks.Pairs(Decks.playerHand, playerScore);
                     }
 
                     Decks.DisplayCards();
 
-                    if (Decks.dH.Count() > 0)
+                    if (Decks.dealerHand.Count() > 0)
                     {
                         DealerActions();
-                        dS = Decks.Pairs(Decks.dH, dS);
+                        dealerScore = Decks.Pairs(Decks.dealerHand, dealerScore);
                     }
-                    if (Decks.dH.Count() == 0)
+                    if (Decks.dealerHand.Count() == 0)
                     {
-                        Decks.NoCardsInHand(Decks.dH);
-                        Decks.Pairs(Decks.dH, dS);
+                        Decks.NoCardsInHand(Decks.dealerHand);
+                        Decks.Pairs(Decks.dealerHand, dealerScore);
                     }
 
-                    if (Decks.deck.Count() == 0 && Decks.pH.Count() == 0 && Decks.dH.Count() == 0)
+                    if (Decks.deck.Count() == 0 && Decks.playerHand.Count() == 0 && Decks.dealerHand.Count() == 0)
                     {
                         runGame = false;
                         Results();
@@ -107,31 +107,31 @@ namespace GoFish
                 {
                     Decks.DisplayCards();
 
-                    if (Decks.dH.Count() > 0)
+                    if (Decks.dealerHand.Count() > 0)
                     {
                         DealerActions();
-                        dS = Decks.Pairs(Decks.dH, dS);
+                        dealerScore = Decks.Pairs(Decks.dealerHand, dealerScore);
                     }
-                    if (Decks.dH.Count() == 0)
+                    if (Decks.dealerHand.Count() == 0)
                     {
-                        Decks.NoCardsInHand(Decks.dH);
-                        Decks.Pairs(Decks.dH, dS);
+                        Decks.NoCardsInHand(Decks.dealerHand);
+                        Decks.Pairs(Decks.dealerHand, dealerScore);
                     }
 
                     Decks.DisplayCards();
 
-                    if (Decks.pH.Count() > 0)
+                    if (Decks.playerHand.Count() > 0)
                     {
                         Actions();
-                        pS = Decks.Pairs(Decks.pH, pS);
+                        playerScore = Decks.Pairs(Decks.playerHand, playerScore);
                     }
-                    if (Decks.pH.Count() == 0)
+                    if (Decks.playerHand.Count() == 0)
                     {
-                        Decks.NoCardsInHand(Decks.pH);
-                        Decks.Pairs(Decks.pH, pS);
+                        Decks.NoCardsInHand(Decks.playerHand);
+                        Decks.Pairs(Decks.playerHand, playerScore);
                     }
 
-                    if (Decks.deck.Count() == 0 && Decks.pH.Count() == 0 && Decks.dH.Count() == 0)
+                    if (Decks.deck.Count() == 0 && Decks.playerHand.Count() == 0 && Decks.dealerHand.Count() == 0)
                     {
                         runGame = false;
                         Results();
@@ -143,12 +143,12 @@ namespace GoFish
         public static void Actions()
         {
             Card temp = new Card(null);
-            int dealerCount = Decks.dH.Count();
+            int dealerCount = Decks.dealerHand.Count();
             bool action = true;
             bool error = true;
             bool check = false;
             bool inHand = false;
-            bool inDHand = false;
+            bool indealerHandand = false;
 
             while (action)
             {
@@ -177,7 +177,7 @@ namespace GoFish
                     catch (Exception) { Console.WriteLine("Invalid Response"); }
                 }
 
-                foreach (Card card in Decks.pH)
+                foreach (Card card in Decks.playerHand)
                 {
                     if (card.card == temp.card)
                     {
@@ -189,12 +189,12 @@ namespace GoFish
 
                 if (inHand == true)
                 {
-                    foreach (Card card in Decks.dH)
+                    foreach (Card card in Decks.dealerHand)
                     {
                         if (card.card == temp.card)
                         {
                             action = false;
-                            inDHand = true;
+                            indealerHandand = true;
                             temp = card;
                             break;
                         }
@@ -203,20 +203,20 @@ namespace GoFish
                 }
                 else { Console.WriteLine("\nYour hand doesn't contain a " + temp.card); error = true; }
             }
-            if (inDHand == true)
+            if (indealerHandand == true)
             {
                 Console.WriteLine("\nYou took the computer's card\nPress any key to continue");
                 Console.ReadKey();
 
-                Decks.pH.Add(temp);
-                Decks.dH.Remove(temp);
+                Decks.playerHand.Add(temp);
+                Decks.dealerHand.Remove(temp);
             }
             else
             {
                 Console.WriteLine("Go Fish!\nYou picked up a: " + Decks.deck[0].card + "\n\nPress any key to continue");
                 Console.ReadKey();
 
-                Decks.pH.Add(Decks.deck[0]);
+                Decks.playerHand.Add(Decks.deck[0]);
                 Decks.deck.RemoveAt(0);
             }
         }
@@ -224,15 +224,15 @@ namespace GoFish
         {
             Random rnd = new Random();
             Card temp = new Card(null);
-            int dHCount = Decks.dH.Count();
+            int dealerHandCount = Decks.dealerHand.Count();
             int index = 0;
             bool inHand = false;
 
-            index = rnd.Next(0, dHCount);
+            index = rnd.Next(0, dealerHandCount);
 
-            foreach (Card card in Decks.pH)
+            foreach (Card card in Decks.playerHand)
             {
-                if (Decks.dH[index].card == card.card)
+                if (Decks.dealerHand[index].card == card.card)
                 {
                     inHand = true;
                     temp = card;
@@ -241,20 +241,20 @@ namespace GoFish
 
             if (inHand == true)
             {
-                Console.WriteLine("\nDo you have a " + Decks.dH[index].card);
+                Console.WriteLine("\nDo you have a " + Decks.dealerHand[index].card);
                 Console.WriteLine("\nThe computer took your card\nPress any key to continue");
 
-                Decks.dH.Add(temp);
-                Decks.pH.Remove(temp);
+                Decks.dealerHand.Add(temp);
+                Decks.playerHand.Remove(temp);
 
                 Console.ReadKey();
             }
             else
             {
-                Console.WriteLine("\nDo you have a " + Decks.dH[index].card);
+                Console.WriteLine("\nDo you have a " + Decks.dealerHand[index].card);
                 Console.WriteLine("Go Fish!\nPress any key to continue");
 
-                Decks.dH.Add(Decks.deck[0]);
+                Decks.dealerHand.Add(Decks.deck[0]);
                 Decks.deck.RemoveAt(0);
 
                 Console.ReadKey();
@@ -264,11 +264,11 @@ namespace GoFish
         public static void Results()
         {
             Console.Clear();
-            Console.WriteLine("Your Pairs: " + pS + "\nComputer's Pairs: " + dS);
+            Console.WriteLine("Your Pairs: " + playerScore + "\nComputer's Pairs: " + dealerScore);
 
-            if (pS > dS) { Console.WriteLine("You Win!"); }
-            else if (pS < dS) { Console.WriteLine("You Lose!"); }
-            else if (pS == dS) { Console.WriteLine("Tie"); }
+            if (playerScore > dealerScore) { Console.WriteLine("You Win!"); }
+            else if (playerScore < dealerScore) { Console.WriteLine("You Lose!"); }
+            else if (playerScore == dealerScore) { Console.WriteLine("Tie"); }
         }
     }
 }
