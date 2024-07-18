@@ -88,6 +88,7 @@ namespace GoFish
                 Decks.deck.RemoveAt(0);
             }
         }
+
         public static void DealerActions()
         {
             Random rnd = new Random();

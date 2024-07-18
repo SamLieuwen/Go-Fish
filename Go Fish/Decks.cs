@@ -14,6 +14,47 @@ namespace GoFish
         public static List<Card> playerHand;
         public static List<Card> dealerHand;
 
+        public static int Pairs(List<Card> hand, int score)
+        {
+            for (int c = 0; c < 2; c++)
+            {
+                for (int i = 0; i < hand.Count() - 1; i++)
+                {
+                    for (int j = hand.Count() - 1; j > i; j--)
+                    {
+                        if (hand[i].card == hand[j].card)
+                        {
+                            hand.RemoveAt(j);
+                            hand.RemoveAt(i);
+                            score++;
+                            j--;
+                        }
+                    }
+                }
+            }
+            return score;
+
+        }
+        public static void NoCardsInHand(List<Card> hand)
+        {
+            if (Decks.deck.Count() >= 5)
+            {
+                for (int i = 0; i < 5; i++)
+                {
+                    hand.Add(deck[0]);
+                    deck.RemoveAt(0);
+                }
+            }
+            else
+            {
+                for (int i = 0; i < Decks.deck.Count(); i++)
+                {
+                    hand.Add(deck[0]);
+                    deck.RemoveAt(0);
+                }
+            }
+        }
+
         public static void CreateDeck()
         {
             for (int i = 0; i < 4; i++)
@@ -61,45 +102,5 @@ namespace GoFish
             referenceDeck.Add(new Card("King"));
         }
 
-        public static int Pairs(List<Card> hand, int score)
-        {
-            for (int c = 0; c < 2; c++)
-            {
-                for (int i = 0; i < hand.Count() - 1; i++)
-                {
-                    for (int j = hand.Count() - 1; j > i; j--)
-                    {
-                        if (hand[i].card == hand[j].card)
-                        {
-                            hand.RemoveAt(j);
-                            hand.RemoveAt(i);
-                            score++;
-                            j--;
-                        }
-                    }
-                }
-            }
-            return score;
-
-        }
-        public static void NoCardsInHand(List<Card> hand)
-        {
-            if (Decks.deck.Count() >= 5)
-            {
-                for (int i = 0; i < 5; i++)
-                {
-                    hand.Add(deck[0]);
-                    deck.RemoveAt(0);
-                }
-            }
-            else
-            {
-                for (int i = 0; i < Decks.deck.Count(); i++)
-                {
-                    hand.Add(deck[0]);
-                    deck.RemoveAt(0);
-                }
-            }
-        }
     }
 }
