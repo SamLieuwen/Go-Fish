@@ -101,6 +101,5 @@ namespace GoFish
             referenceDeck.Add(new Card("Queen"));
             referenceDeck.Add(new Card("King"));
         }
-
     }
 }
