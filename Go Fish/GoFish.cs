@@ -144,7 +144,7 @@ namespace GoFish
         {
             Console.Clear();
             Console.Write("Cards left in deck: " + Decks.deck.Count());
-            Console.Write("\nYour Pairs: " + GoFish.playerScore + "\nYour Hand: ");
+            Console.Write("\nYour Pairs: " + playerScore + "\nYour Hand: ");
             foreach (Card card in Decks.playerHand)
             {
                 Console.Write(card.card + " ");

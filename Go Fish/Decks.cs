@@ -37,7 +37,7 @@ namespace GoFish
         }
         public static void NoCardsInHand(List<Card> hand)
         {
-            if (Decks.deck.Count() >= 5)
+            if (deck.Count() >= 5)
             {
                 for (int i = 0; i < 5; i++)
                 {
@@ -47,7 +47,7 @@ namespace GoFish
             }
             else
             {
-                for (int i = 0; i < Decks.deck.Count(); i++)
+                for (int i = 0; i < deck.Count(); i++)
                 {
                     hand.Add(deck[0]);
                     deck.RemoveAt(0);
