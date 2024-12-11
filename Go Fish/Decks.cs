@@ -33,7 +33,6 @@ namespace GoFish
                 }
             }
             return score;
-
         }
         public static void NoCardsInHand(List<Card> hand)
         {
