@@ -43,17 +43,17 @@ namespace GoFish
 
             while (true)
             {
-                Console.WriteLine("HeadealerScore or Tails: ");
+                Console.WriteLine("Heads or Tails: ");
                 guess = Console.ReadLine().ToLower();
                 coin = rnd.Next(1, 3);
 
-                if (guess != "headealerScore" && guess != "tails")
+                if (guess != "heads" && guess != "tails")
                 {
                     Console.WriteLine("Invalid Response");
                 }
                 else { break; }
             }
-            if (guess == "headealerScore" && coin == 1 || guess == "tails" && coin == 2)
+            if (guess == "heads" && coin == 1 || guess == "tails" && coin == 2)
             {
                 firstTurn = true;
                 Console.WriteLine("\nYou go first\nPress any key to continue");
